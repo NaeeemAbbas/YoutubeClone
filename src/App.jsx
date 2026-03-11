@@ -12,7 +12,10 @@ const App = () => {
       <Routes>
       <Route path="/" element={<Home sidebar ={sidebar} />} />
       <Route path="/video/:catagoryId/:videoId" element={<Video/>} />
+      
       </Routes>
+
+   
     </div>
   )
 }

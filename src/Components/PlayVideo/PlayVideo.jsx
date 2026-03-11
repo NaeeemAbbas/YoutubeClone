@@ -21,6 +21,12 @@ const PlayVideo = ({ videoId }) => {
       .then((res) => res.json())
       .then((data) => setApiData(data.items[0]));
   };
+
+
+    const fetchOtherData = async () =>{
+      // Fetch Channel Data 
+      const channelData_url=``
+    }
   useEffect(() => {
     fetchVideoData();
   }, []);
@@ -35,6 +41,8 @@ const PlayVideo = ({ videoId }) => {
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       ></iframe>
+      <h1>naemee</h1>
+      <p>naeemasdasd</p>
       <h3>{apiData ? apiData.snippet.title : "Title here"}</h3>
       <div className="play-video-info">
         <p>{apiData?value_converter(apiData.statistics.viewCount):"16k"} Views &bull; {apiData?moment(apiData.snippet.publishedAt).fromNow():""}</p>
