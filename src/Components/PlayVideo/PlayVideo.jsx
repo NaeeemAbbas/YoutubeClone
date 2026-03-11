@@ -25,11 +25,17 @@ const PlayVideo = ({ videoId }) => {
 
     const fetchOtherData = async () =>{
       // Fetch Channel Data 
-      const channelData_url=``
+      const channelData_url=`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`
+      await fetch(channelData_url)
+      .then(res=>res.json())
+      .then(data=>setChannelData(data.items[0]))
     }
   useEffect(() => {
     fetchVideoData();
   }, []);
+  useEffect(()=>{
+    fetchOtherData();
+  },[apiData])
 
   return (
     <div className="play-video">
@@ -41,8 +47,7 @@ const PlayVideo = ({ videoId }) => {
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       ></iframe>
-      <h1>naemee</h1>
-      <p>naeemasdasd</p>
+     
       <h3>{apiData ? apiData.snippet.title : "Title here"}</h3>
       <div className="play-video-info">
         <p>{apiData?value_converter(apiData.statistics.viewCount):"16k"} Views &bull; {apiData?moment(apiData.snippet.publishedAt).fromNow():""}</p>
@@ -66,10 +71,10 @@ const PlayVideo = ({ videoId }) => {
       </div>
       <hr />
       <div className="publisher">
-        <img src={naeem} alt="" />
+        <img src={channelData?channelData.snippet.thumbnails.default.url:""} alt="" />
         <div>
           <p>{apiData?apiData.snippet.channelTitle:""}</p>
-          <span>1M Subscribers</span>
+          <span>{channelData?value_converter(channelData.statistics.subscriberCount):"1M"} Subscriber </span>
         </div>
         <button>Subscribe</button>
       </div>
